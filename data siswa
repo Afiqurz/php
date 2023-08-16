@@ -1,0 +1,200 @@
+     <div class="content-header">
+         <div class="container-fluid">
+             <div class="row mb-2">
+                 <div class="col-sm-6">
+                     <h1 class="m-0">siswa</h1>
+                 </div><!-- /.col -->
+                 <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                         <li class="breadcrumb-item"><a href="#">Home</a></li>
+                         <li class="breadcrumb-item active">siswa</li>
+                     </ol>
+                 </div><!-- /.col -->
+             </div><!-- /.row -->
+         </div><!-- /.container-fluid -->
+     </div>
+
+     <!-- Main content -->
+     <section class="content">
+         <div class="container-fluid">
+             <div class="row">
+                 <div class="col-12">
+                     <!-- /.card -->
+
+                     <div class="card">
+                         <div class="card-header">
+                             <h3 class="card-title">DataTable with default features</h3>
+                         </div>
+                         <!-- /.card-header -->
+                         <div class="card-body">
+                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">
+                                 Tambah Datanya
+                             </button>
+                             <br></br>
+                             <table id="example2" class="table table-bordered table-striped">
+                                 <thead>
+                                     <tr>
+                                         <th>No</th>
+                                         <th>Nama</th>
+                                         <th>NIS</th>
+                                         <th>Jenis Kelamin</th>
+                                         <th>Alamat</th>
+                                         <th>Kelas</th>
+                                         <th>Action</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <?php
+                    $no = 0;
+                    $query = mysqli_query($koneksi, "SELECT * FROM tb_siswa");
+                    while($mhs = mysqli_fetch_array($query)){
+                      $no++
+                    ?>
+                                     <tr>
+                                         <td width='2%'><?php echo $no;?></td>
+
+                                         <td><?php echo $mhs['nama'];?></td>
+                                         <td><?php echo $mhs['nis'];?></td>
+                                         <td><?php echo $mhs['jenis_kelamin'];?></td>
+                                         <td><?php echo $mhs['alamat'];?></td>
+                                         <td><?php echo $mhs['id_kelas'];?></td>
+
+                                         <td>
+                                         <td><a onclick="hapus_siswa(<?php echo $mhs['id'];?>)"
+                                                 class="btn btn-sm btn-danger">Hapus</a></td>
+                                         <td><a href="index.php?page=edit-siswa&& id   =<?php echo $mhs['id'];?>"
+                                                 class="btn btn-sm btn-success">Edit</a></td>
+                                         </td>
+                                     </tr>
+                                     <?php }?>
+                                 </tbody>
+                                 <tfoot>
+                                     <tr>
+                                         <th>Rendering engine</th>
+                                         <th>Browser</th>
+                                         <th>Platform(s)</th>
+                                         <th>Engine version</th>
+                                         <th>CSS grade</th>
+                                     </tr>
+                                 </tfoot>
+                             </table>
+                         </div>
+                         <!-- /.card-body -->
+                     </div>
+                     <!-- /.card -->
+                 </div>
+                 <!-- /.col -->
+             </div>
+             <!-- /.row -->
+         </div>
+         <!-- /.container-fluid -->
+     </section>
+     <div class="modal fade" id="modal-lg">
+         <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h4 class="modal-title">Tambah Data</h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <form method="get" action="add/tambah_siswa.php">
+                     <div class="modal-body">
+
+                         <div class="form-row">
+                             <div class="col">
+                                 <input type="text" class="form-control" placeholder="NAMA" name="nama" required>
+                             </div>
+                             <div class="col">
+                                 <input type="text" class="form-control" placeholder="NIS" name="nis" required>
+                             </div>
+                             <div class="col">
+                                 <select class="custom-select" id="inputGroupSelect01" name="jenis_kelamin">
+                                     <option selected>Pilih Jenis..</option>
+                                     <option value="Laki-Laki">Laki-Laki</option>
+                                     <option value="Perempuan">Perempuan</option>
+                                 </select>
+                             </div>
+                             <div class="col">
+                                 <select class="custom-select" id="inputGroupSelect01" name="alamat">
+                                     <option selected>Pilih Alamat</option>
+                                     <option value="GKB">GKB</option>
+                                     <option value="Manyar">Manyar</option>
+                                     <option value="Betoyo">Betoyo</option>
+                                     <option value="Peganden">Peganden</option>
+                                     <option value="Kedanyang">Kedanyang</option>
+                                     <option value="Giri">Giri</option>
+                                     <option value="Randu Agung">Randu Agung</option>
+                                     <option value="Telogo Pojok">Telogo Pojok</option>
+                                     <option value="Bunga">Bunga</option>
+
+                                 </select>
+                             </div>
+                             <div class="col">
+                                 <select class="custom-select" id="inputGroupSelect01" name="id_kelas">
+                                     <option selected>Pilih Kelas..</option>
+                                     <option value="X">X</option>
+                                     <option value="XI">XI</option>
+                                     <option value="XII">XII</option>
+
+                                 </select>
+                             </div>
+                         </div>
+
+                     </div>
+                     <div class="modal-footer justify-content-between">
+                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                         <button type="submit" class="btn btn-info">Simpan</button>
+                     </div>
+             </div>
+             </form>
+             <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+     </div>
+     <!-- view data -->
+     <div class="modal fade" id="modal-view">
+         <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h4 class="modal-title">View Data</h4>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                 </div>
+                 <form method="get" action="add/tambah_siswa.php">
+                     <div class="modal-body" id="hasil-view-data">
+
+
+                     </div>
+                     <div class="modal-footer justify-content-between">
+                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                         <button type="submit" class="btn btn-info">Simpan</button>
+                     </div>
+             </div>
+             </form>
+             <!-- /.modal-content -->
+         </div>
+         <!-- /.modal-dialog -->
+     </div>
+     <script>
+function hapus_siswa(data_id) {
+    // alert('ok');
+    //    window.location=("delete/hapus_siswa.php?id="+data_id)
+    Swal.fire({
+        title: 'menghapus data?',
+        //   showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'hapus data',
+        confirmButtonColor: 'red',
+        //   denyButtonText: `Don't save`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            window.location = ("delete/hapus_siswa.php?id=" + data_id)
+            Swal.fire('Saved!', '', 'success')
+        }
+
+    })
+}
+     </script>
